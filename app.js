@@ -33,7 +33,7 @@ app.post("/signup", (req, res) => {
 
   const postData = JSON.stringify(data);
 
-  /*   try {
+  try {
     axios
       .post(
         "https://us6.api.mailchimp.com/3.0/lists/3e96be85fb",
@@ -51,9 +51,9 @@ app.post("/signup", (req, res) => {
   } catch (err) {
     console.error("GG", err);
   }
-}); */
+});
 
-  /*   fetch("https://us6.api.mailchimp.com/3.0/lists/3e96be85fb", {
+/*   fetch("https://us6.api.mailchimp.com/3.0/lists/3e96be85fb", {
     method: "POST",
     headers: {
       Authorization: `auth ${environmentVariables.API_KEY}`,
@@ -67,7 +67,7 @@ app.post("/signup", (req, res) => {
     .catch((err) => console.log(err));
 }); */
 
-  const options = {
+/*   const options = {
     url: "https://us6.api.mailchimp.com/3.0/lists/3e96be85fb",
     method: "POST",
     headers: {
@@ -86,7 +86,7 @@ app.post("/signup", (req, res) => {
       res.send("Its works: ", body);
     }
   });
-});
+}); */
 
 const PORT = process.env.PORT || 5000;
 
