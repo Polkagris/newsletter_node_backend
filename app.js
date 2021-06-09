@@ -71,7 +71,7 @@ app.post("/signup", (req, res) => {
     url: "https://us6.api.mailchimp.com/3.0/lists/3e96be85fb",
     method: "POST",
     headers: {
-      Authorization: `auth ${environmentVariables.API_KEY}`,
+      Authorization: `auth ${API_KEY}`,
     },
     body: postData,
   };
