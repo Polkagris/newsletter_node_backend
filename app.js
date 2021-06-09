@@ -42,7 +42,7 @@ app.post("/signup", (req, res) => {
         },
         {
           headers: {
-            Authorization: `auth 342e071feee30afd363fb8c757c6c1aa-us6`,
+            Authorization: `auth ${process.env.API_KEY}`,
           },
         }
       )
