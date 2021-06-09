@@ -5,7 +5,7 @@ const fetch = require("node-fetch");
 const axios = require("axios");
 
 const app = express();
-const environmentVariables = require("./.env");
+// const environmentVariables = require("./.env");
 const { request } = require("http");
 // const { response } = require("express");
 // import API_KEY from "./env";
