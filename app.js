@@ -1,34 +1,52 @@
 const mailchimp = require("@mailchimp/mailchimp_marketing");
 
-mailchimp.setConfig({
-  apiKey: "07baea80ed7e6a3ffd70e2b8e75b273f-us6",
-  server: "us6",
+const express = require("express");
+const bodyParser = require("body-parser");
+
+const app = express();
+const port = 5000;
+
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.post("/newsletter", (req, res) => {
+  const { nameFirst, nameLast, emailValue } = req.body;
+
+  mailchimp.setConfig({
+    apiKey: `${process.env.API_KEY}`,
+    server: "us6",
+  });
+
+  const listId = "3e96be85fb";
+  const subscribingUser = {
+    firstName: nameFirst,
+    lastName: nameLast,
+    email: emailValue,
+  };
+
+  async function run() {
+    try {
+      const response = await mailchimp.lists.addListMember(listId, {
+        email_address: subscribingUser.email,
+        status: "subscribed",
+        merge_fields: {
+          FNAME: subscribingUser.firstName,
+          LNAME: subscribingUser.lastName,
+        },
+      });
+
+      console.log(
+        `Successfully added contact as an audience member. The contact's id is ${response.id}.`
+      );
+    } catch (err) {
+      console.log("error:", err);
+    }
+  }
+
+  // npm run dev to run
+  run();
 });
 
-const listId = "3e96be85fb";
-const subscribingUser = {
-  firstName: "Rick",
-  lastName: "Sanches",
-  email: "ricksanches@local.com",
-};
-
-async function run() {
-  try {
-    const response = await mailchimp.lists.addListMember(listId, {
-      email_address: subscribingUser.email,
-      status: "subscribed",
-      merge_fields: {
-        FNAME: subscribingUser.firstName,
-        LNAME: subscribingUser.lastName,
-      },
-    });
-
-    console.log(
-      `Successfully added contact as an audience member. The contact's id is ${response.id}.`
-    );
-  } catch (err) {
-    console.log("error:", err);
-  }
-}
-
-run();
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
