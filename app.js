@@ -9,8 +9,17 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post("/newsletter", (req, res) => {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
+app.post("/newsletter", (req, res) => {
+  // res.header("Access-Control-Allow-Origin", "*");
   const { nameFirst, nameLast, emailValue } = req.body;
 
   mailchimp.setConfig({
