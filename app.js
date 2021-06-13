@@ -10,6 +10,7 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/newsletter", (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
   const { nameFirst, nameLast, emailValue } = req.body;
 
   mailchimp.setConfig({
